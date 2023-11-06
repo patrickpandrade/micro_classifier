@@ -1,0 +1,15 @@
+@startuml
+class DictStruct {
+        __init__()
+}
+class TrainTest {
+    _getWavData()
+    _saveTestWavFile()
+    _saveWavFolders()
+    _prepareDummyTrainingData()
+    _getDefaultFlags()
+    testTrain()
+        __init__()
+}
+object <|-- DictStruct
+@enduml
