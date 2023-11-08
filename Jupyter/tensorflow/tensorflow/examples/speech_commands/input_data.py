@@ -466,15 +466,21 @@ class AudioProcessor(object):
         window_step_ms = (model_settings['window_stride_samples'] *
                           1000) / sample_rate
         int16_input = tf.cast(tf.multiply(background_clamp, 32768), tf.int16)
+        #************* Início da modificação **************** 
         micro_frontend = frontend_op.audio_microfrontend(
             int16_input,
             sample_rate=sample_rate,
             window_size=window_size_ms,
             window_step=window_step_ms,
             num_channels=model_settings['fingerprint_width'],
+        #************* Linhas adicionadas ****************
+            upper_band_limit=7999.0,
+            lower_band_limit=0.0,
+            min_signal_remaining=0.80,
+            enable_pcan=False,
+        #*********** Fim Linhas adicionadas **************
             out_scale=1,
             out_type=tf.float32)
-        #************* Início da modificação ****************    
         #self.output_ = tf.multiply(micro_frontend, (10.0 / 256.0))
         self.output_ = tf.multiply(micro_frontend, (6.9769 / 256.0))
         #************* Fim da modificação *******************
